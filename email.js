@@ -7,7 +7,7 @@ sgMail.setApiKey('SG.v1bjq3r8RKKhBFfEj_4tDg.AOwFyY4oz6GTvX8QAkmGWSddu4DvP9PRJZTk
 
 exports.textMsg = function(stocks){
     const msg = {
-        to: '4235444888@txt.att.net',
+        to: '4236820447@txt.att.net',
         from: 'harshpatel2589@gmail.com',
         subject: 'Sending with Twilio SendGrid',
         text: JSON.stringify(stocks),
