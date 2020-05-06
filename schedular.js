@@ -1,22 +1,19 @@
 var schedule = require('node-schedule');
 var marketUpdate = require('./marketUpdate.js');
-var stock = marketUpdate.getStockList();
 var emailSystem = require('./email.js');
+var config = require('./config.js');
 
-// *    *    *    *    *    *
-// ┬    ┬    ┬    ┬    ┬    ┬
-// │    │    │    │    │    │
-// │    │    │    │    │    └ day of week (0 - 7) (0 or 7 is Sun)
-// │    │    │    │    └───── month (1 - 12)
-// │    │    │    └────────── day of month (1 - 31)
-// │    │    └─────────────── hour (0 - 23)
-// │    └──────────────────── minute (0 - 59)
-// └───────────────────────── second (0 - 59, OPTIONAL)
+var timer = config.sendValue('nodeScheduleTimer');
+var stock = config.getStockList();
 
 exports.timer = function(){
-    return schedule.scheduleJob('* * * * *', function(){   //every 30 minutes from 9am to 4PM only on Monday to Friday.
+    return schedule.scheduleJob(timer, function(){
 
-        console.log("-----schedule job is triggered.--- ")
+        console.log("-----schedule job is triggered.--- ", )
+        var date = new Date();
+        var t = date.getHours() + ' : ' + date.getMinutes();
+        console.log("time call triggered on ", t);
+
         var finalReport = [];
       
         for(var x=0; x< stock.length; x++){
@@ -31,4 +28,3 @@ exports.timer = function(){
       
     });
 }
-

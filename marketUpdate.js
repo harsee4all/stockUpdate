@@ -1,11 +1,8 @@
 
-var stockList = ['I', 'MAXR'];
-const alpha = require('alphavantage')({ key: '3G36FX3N5YHOSWKE' });
+var config = require('./config.js');
+var alphavantageKey = config.sendValue('alphavantageKey');
 
-exports.getStockList = function(){
-    return stockList;
-}
-
+const alpha = require('alphavantage')({ key: alphavantageKey });
 
 exports.stockUpdate = function(stockName) {
     var stockRes = [];
@@ -24,9 +21,7 @@ exports.stockUpdate = function(stockName) {
 
 }
 
-
 createObj = function(symbol, stockPrice){
-
     var Obj = {
         stock : symbol,
         price: stockPrice
