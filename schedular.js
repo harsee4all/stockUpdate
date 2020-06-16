@@ -20,8 +20,10 @@ exports.timer = function(){
             finalReport.push(marketUpdate.stockUpdate(stock[x]))
         }
       
-        Promise.all(finalReport).then(function(publishReport){
-            emailSystem.textMsg(publishReport)
+        Promise.all(finalReport).then(function(detailObject){
+            var xyz = config.checkCondition(detailObject);
+            console.log("this is what we will get in text", xyz);
+            // emailSystem.textMsg(publishReport)
         },function(error){
             console.log("Promise all function is throwing some error -----> ", error)
         })

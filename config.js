@@ -1,5 +1,6 @@
 
 configTemplate = {
+    // nodeScheduleTimer : '30 9-16 * * 1-5',
     nodeScheduleTimer : '* * * * *',
     cellNo : '4236820447',
     cellCarrier: 'txt.att.net',
@@ -14,4 +15,11 @@ exports.sendValue = function(value){
 stockList = ['I', 'MAXR'];
 exports.getStockList = function() {
     return stockList;
+}
+
+exports.checkCondition = function(detailObject){
+    var publishReport = "Harsh is great";
+    console.log("check condition ma che ", detailObject);
+
+    return publishReport;
 }
