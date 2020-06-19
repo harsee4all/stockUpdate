@@ -5,7 +5,6 @@ var config = require('./config.js');
 
 var timer = config.sendValue('nodeScheduleTimer');
 var stock = config.getStockList();
-
 exports.timer = function(){
     return schedule.scheduleJob(timer, function(){
 
@@ -21,9 +20,9 @@ exports.timer = function(){
         }
       
         Promise.all(finalReport).then(function(detailObject){
-            var xyz = config.checkCondition(detailObject);
-            console.log("this is what we will get in text", xyz);
-            // emailSystem.textMsg(publishReport)
+           var xyz = config.checkCondition(detailObject);
+            // console.log("check condition ma che from schedular file ", xyz);
+            emailSystem.textMsg(xyz)
         },function(error){
             console.log("Promise all function is throwing some error -----> ", error)
         })

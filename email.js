@@ -21,6 +21,6 @@ exports.textMsg = function(stocks){
       };
       
       console.log(msg);
-    // sgMail.send(msg);
+    sgMail.send(msg);
 
 }
