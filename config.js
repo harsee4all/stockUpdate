@@ -12,19 +12,21 @@ exports.sendValue = function(value){
     return configTemplate[value];
 }
 
-stockList = ['F','MAXR'];
-
-stockListBasePrice = [ { stock: 'F', price: '5.00' },
-{ stock: 'MAXR', price: '12.75' } ]
-
-
+stockListBasePrice = [ 
+    { stock: 'F', price: '5.00' },
+    { stock: 'MAXR', price: '12.75' }
+]
 exports.getStockList = function() {
-    return stockList;
+    var result = [];
+    stockListBasePrice.forEach(e => {
+        result.push(e.stock)
+    });
+    return result;
 }
+
 var publishReport = [];
 
 exports.checkCondition = function(detailObject){
-    // console.log("real values are this ", detailObject)
     publishReport = [];
     for(var x = 0; x < detailObject.length; x++){
       conditionalFunction(detailObject[x]);    
@@ -36,9 +38,12 @@ exports.checkCondition = function(detailObject){
 conditionalFunction = function(singleStockDetail){
     var picked = stockListBasePrice.find(one => one.stock === singleStockDetail.stock);
 
-    if(parseFloat(singleStockDetail.price) >=  parseFloat(picked.price)){
+    if(picked && parseFloat(singleStockDetail.price) >=  parseFloat(picked.price)){
         console.log("its time to sell the stock ", picked)
         picked.priceDifference = parseFloat(singleStockDetail.price) - parseFloat(picked.price);
         publishReport.push(picked);
+    }
+    else {
+        publishReport.push(singleStockDetail);
     }
 }
