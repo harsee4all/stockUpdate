@@ -13,8 +13,8 @@ exports.sendValue = function(value){
 }
 
 stockListBasePrice = [ 
-    { stock: 'F', price: '5.00' },
-    { stock: 'MAXR', price: '12.75' }
+    { stock: 'F', price: '5.96' },
+    { stock: 'MAXR', price: '5.72' }
 ]
 exports.getStockList = function() {
     var result = [];
@@ -31,7 +31,7 @@ exports.checkCondition = function(detailObject){
     for(var x = 0; x < detailObject.length; x++){
       conditionalFunction(detailObject[x]);    
     }
-    console.log("final list should be this ", publishReport);
+    // console.log("final list should be this ", publishReport);
     return publishReport;
 }
 
