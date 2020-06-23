@@ -6,9 +6,6 @@ var config = require('./config.js');
 var timer = config.sendValue('nodeScheduleTimer');
 var stock = config.getStockList();
 
-var alert = require('alert-node');
-
-
 exports.timer = function(){
     return schedule.scheduleJob(timer, function(){
 

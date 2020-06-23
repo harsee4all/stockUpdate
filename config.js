@@ -1,6 +1,6 @@
 
 configTemplate = {
-    // nodeScheduleTimer : '30 9-16 * * 1-5',
+    // nodeScheduleTimer : '2/30 9-16 * * 1-5',
     nodeScheduleTimer : '* * * * *',
     cellNo : '4236820447',
     cellCarrier: 'txt.att.net',
@@ -13,8 +13,8 @@ exports.sendValue = function(value){
 }
 
 stockListBasePrice = [ 
-    { stock: 'F', price: '5.96' },
-    { stock: 'MAXR', price: '5.72' }
+    { stock: 'F', price: 5.96, noOfShare: 480 },
+    { stock: 'MAXR', price: 5.72, noOfShare: 112 }
 ]
 exports.getStockList = function() {
     var result = [];
@@ -31,16 +31,23 @@ exports.checkCondition = function(detailObject){
     for(var x = 0; x < detailObject.length; x++){
       conditionalFunction(detailObject[x]);    
     }
-    // console.log("final list should be this ", publishReport);
+
     return publishReport;
 }
 
 conditionalFunction = function(singleStockDetail){
+    // console.log("check what API is sending ", singleStockDetail)
     var picked = stockListBasePrice.find(one => one.stock === singleStockDetail.stock);
 
-    if(picked && parseFloat(singleStockDetail.price) >=  parseFloat(picked.price)){
-        console.log("its time to sell the stock ", picked)
-        picked.priceDifference = parseFloat(singleStockDetail.price) - parseFloat(picked.price);
+    if(picked && singleStockDetail.price >=  picked.price){
+        picked.priceDifference = singleStockDetail.price - picked.price;
+        picked.priceDifference = parseFloat(picked.priceDifference).toFixed(2) * 1; // convert into number with 2 decimal points
+        picked.sharePrice =  parseFloat(singleStockDetail.price).toFixed(2) * 1; // convert into number with 2 decimal points
+        picked.purchasePrice = picked.price * picked.noOfShare;
+        picked.currentValue = picked.sharePrice * picked.noOfShare;
+        picked.profit = picked.currentValue - picked.purchasePrice;
+        picked.profit = parseFloat(picked.profit).toFixed(2) * 1; // convert into number with 2 decimal points
+        // console.log("its time to sell the stock ", picked)
         publishReport.push(picked);
     }
     else {
